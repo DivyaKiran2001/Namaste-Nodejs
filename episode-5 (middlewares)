@@ -1,0 +1,133 @@
+> middlewares
+  - auth.js
+const adminAuth = (req,res,next) => {
+    console.log("Admin auth  ");
+    const token = "xyz";
+    const isAdminAuthorized = token === "xyz";
+    if(!isAdminAuthorized) {
+        res.status(401).send("Unauthorized request");
+    }
+    else{
+        next();
+    }
+};
+
+
+const userAuth = (req,res,next) => {
+    console.log("user auth  ");
+    const token = "xyz";
+    const isAdminAuthorized = token === "xyz";
+    if(!isAdminAuthorized) {
+        res.status(401).send("Unauthorized request");
+    }
+    else{
+        next();
+    }
+};
+module.exports = {
+    adminAuth,
+    userAuth
+};
+
+
+
+> app.js
+
+const express = require("express");
+const app = express();
+
+//Writing multiple route handlers
+
+// app.use("/route",[rh,rh2,rh3,rh4,rh5]) or
+
+// app.use("/route",[rh,rh2],rh3,rh4,rh5) 
+
+
+// app.use(
+//     "/user",
+//     (req,res,next) => {
+//         console.log("Handling the route user 1");
+//         next();
+        
+//     },
+//     (req,res,next) => {
+//         console.log("Handling the route user 2");
+//         res.send("2nd response");
+//     }
+
+// )
+
+// app.use("/user",(req,res,next) => {
+//     console.log("Admin auth  ");
+//     const token = "xyz";
+//     const isAdminAuthorized = token === "xyz";  
+//     if(!isAdminAuthorized) {
+//         res.status(401).send("Unauthorized request");
+//     }
+//     else{
+//         next();
+//     }
+// });
+
+// app.get("/user",(req,res) => {
+//     res.send("User data sent");
+// });
+
+// const {adminAuth, userAuth} = require("./middlewares/auth")
+
+// app.use("/admin",adminAuth);
+// app.use("/user",userAuth);
+
+
+
+// app.get("/admin/getAllData",(req,res) => {
+//     res.send("All Data Sent");
+// });
+
+// app.get("/admin/deleteUser",(req,res) => {
+//     res.send("Deleted a User");
+// });
+
+// app.get("/admin/getAllData",(req,res) => {
+//     const token = "xyz";
+//     const isAdminAuthorized = token === "xyz";
+//     if(isAdminAuthorized) {
+//         res.send("All data sent");
+//     }
+//     else{
+//         res.status(401).send("Unauthorized request");
+//     }
+// })
+
+// app.post("/user/login",(req,res) => {
+//     res.send("User logged in successfully!!");
+// })
+
+// app.get("/user/data",userAuth,(req,res) => {
+//     res.send("User data sent");
+// })
+// app.listen(3030,() => {
+//     console.log("listening ......");
+// })
+
+app.get("/getUserData",(req,res) => {
+    //Logic of DB call and get user data
+    try {
+        throw new Error("ddvdv");
+        res.send("User data sent");
+    }
+    catch(err) {
+        res.status(500).send("Some Error Contact support team");
+    }
+    
+});
+
+app.use("/",(err,req,res,next) => {
+    if(err) {
+        res.status(500).send("something went wrong")
+    }
+});
+
+app.listen(3030,() => {
+    console.log("listening ......");
+})

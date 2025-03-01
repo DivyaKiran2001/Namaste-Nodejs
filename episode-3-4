@@ -1,0 +1,32 @@
+const express = require("express");
+const app = express();
+
+
+
+app.use("/hello",(req,res) => {
+    res.send("Hello");
+});
+
+app.use("/test",(req,res) => {
+    res.send("Hello");
+});
+
+// app.use("/",(req,res) => {
+//     res.send("ok ok");
+// });
+
+app.get("/user/:userId",(req,res) => {
+    console.log(req.params);
+    res.send("This is a GET request");
+})
+
+app.post("/user",(req,res) => {
+    res.send("Data saved successfully");
+})
+
+app.delete("/user",(req,res) => {
+    res.send("Deleted successfully");
+})
+app.listen(3030,() => {
+    console.log("listening");
+});
